@@ -1,13 +1,14 @@
 package com.example.splab;
 
-class Table {
-    private String title;
+class Table extends Element {
+    private String something;
 
-    public Table(String title) {
-        this.title = title;
+    public Table(String something) {
+        this.something = something;
     }
 
+    @Override
     public void print() {
-        System.out.println("Table: " + title);
+        System.out.println("Table: " + something);
     }
 }

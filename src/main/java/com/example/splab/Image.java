@@ -1,13 +1,14 @@
 package com.example.splab;
 
-class Image {
-    private String imageName;
+class Image extends Element {
+    private String url;
 
-    public Image(String imageName) {
-        this.imageName = imageName;
+    public Image(String url) {
+        this.url = url;
     }
 
+    @Override
     public void print() {
-        System.out.println("Image: " + imageName);
+        System.out.println("Image: " + url);
     }
 }
