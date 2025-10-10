@@ -28,7 +28,7 @@ class Section extends Element {
 
     @Override
     public void print() {
-        System.out.println("Section: " + title);
+        System.out.println(title);
         for (Element e : children) {
             e.print();
         }
