@@ -3,7 +3,7 @@ package com.example.splab;
 abstract class Element {
     public abstract void print();
 
-    public void add(Element element) {
+    public void addContent(Element element) {
 
         throw new UnsupportedOperationException("add() not supported");
     }

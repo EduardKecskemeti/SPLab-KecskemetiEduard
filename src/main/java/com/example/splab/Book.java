@@ -18,7 +18,7 @@ class Book extends Element {
     }
 
     @Override
-    public void add(Element element) {
+    public void addContent(Element element) {
         elements.add(element);
     }
 
