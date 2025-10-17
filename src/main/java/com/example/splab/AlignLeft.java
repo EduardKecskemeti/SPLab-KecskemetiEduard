@@ -2,7 +2,9 @@ package com.example.splab;
 
 class AlignLeft implements AlignStrategy {
     @Override
-    public void render(Paragraph paragraph, String context) {
-        System.out.println("<<AlignLeft>> " + paragraph.getText());
+    public void renderLine(String text, int width) {
+        int spaces = width - text.length();
+        if (spaces < 0) spaces = 0;
+        System.out.println(text + " ".repeat(spaces));
     }
 }

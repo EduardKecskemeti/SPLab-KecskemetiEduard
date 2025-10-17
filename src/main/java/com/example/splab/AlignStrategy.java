@@ -1,7 +1,5 @@
 package com.example.splab;
 
-public interface AlignStrategy {
-
-        void render(Paragraph paragraph, String context);
-
+interface AlignStrategy {
+    void renderLine(String text, int width);
 }
