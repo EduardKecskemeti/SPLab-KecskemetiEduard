@@ -1,4 +1,4 @@
-package com.example.splab;
+package com.example.splab.models;
 import java.util.ArrayList;
 import java.util.List;
 public class Paragraph extends Element {

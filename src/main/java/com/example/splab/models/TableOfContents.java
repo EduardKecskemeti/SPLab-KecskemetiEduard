@@ -1,4 +1,4 @@
-package com.example.splab;
+package com.example.splab.models;
 
 class TableOfContents extends Element {
     private String something;

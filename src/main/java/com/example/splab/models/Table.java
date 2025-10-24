@@ -1,4 +1,4 @@
-package com.example.splab;
+package com.example.splab.models;
 
 class Table extends Element {
     private String something;

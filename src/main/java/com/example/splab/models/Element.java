@@ -1,4 +1,4 @@
-package com.example.splab;
+package com.example.splab.models;
 
 abstract class Element {
     public abstract void print();

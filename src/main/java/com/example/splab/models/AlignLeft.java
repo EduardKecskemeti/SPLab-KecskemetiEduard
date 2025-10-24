@@ -1,10 +1,10 @@
-package com.example.splab;
+package com.example.splab.models;
 
-class AlignRight implements AlignStrategy {
+class AlignLeft implements AlignStrategy {
     @Override
     public void renderLine(String text, int width) {
         int spaces = width - text.length();
         if (spaces < 0) spaces = 0;
-        System.out.println(" ".repeat(spaces) + text);
+        System.out.println(text + " ".repeat(spaces));
     }
 }
