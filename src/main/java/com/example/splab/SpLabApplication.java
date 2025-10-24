@@ -2,30 +2,49 @@ package com.example.splab;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+import org.springframework.context.ApplicationContext;
+import com.example.splab.difexample.ClientComponent;
+import com.example.splab.difexample.TransientComponent;
+import com.example.splab.difexample.SingletonComponent;
 @SpringBootApplication
 public class SpLabApplication {
+    public static void main(String[] args) {
+//
+// Run the main function and inspect the output in console
+// to learn about the lifecycle of objects within the
+// Spring Dependency Injection Context
+//
+// Gets a handle of dependency injection context
+        ApplicationContext context =
+                SpringApplication.run(SpLabApplication.class, args);
+// Gets an instance of TransientComponent from the DI context
+        TransientComponent transientBean =
+                context.getBean(TransientComponent.class);
+        transientBean.operation();
+// Note that every time an instance is required,
+// the DI context creates a new one
+        transientBean = context.getBean(TransientComponent.class);
+        transientBean.operation();
+// Gets an instance of SingletonComponent from the DI context
+// Note that the unique instance was created while
+// application was loaded, before creating
+// the transient instances
+        SingletonComponent singletonBean =
+                context.getBean(SingletonComponent.class);
+        singletonBean.operation();
+// Note that every time an instance is required,
+// the DI returns the same unique one
+        singletonBean = context.getBean(SingletonComponent.class);
+        singletonBean.operation();
+// Gets an instance of another class that
+// requires singleton/transient components
+// Note where this instance was created and what beans
+// were used to initialize it
+        ClientComponent c = context.getBean(ClientComponent.class);
+        c.operation();
 
-    public static void main(String[] args) throws Exception {
-        Section cap1 = new Section("Capitolul 1");
-
-        Paragraph p1 = new Paragraph("Stanga!");
-        Paragraph p2 = new Paragraph("This is a longer paragraph that should automatically wrap around when it exceeds the fixed line width.");
-        Paragraph p3 = new Paragraph("Somnic");
-
-        cap1.addContent(p1);
-        cap1.addContent(p2);
-        cap1.addContent(p3);
-
-        System.out.println("Without alignment:\n");
-        cap1.print();
-
-        p1.setAlignStrategy(new AlignLeft());
-        p2.setAlignStrategy(new AlignCenter());
-        p3.setAlignStrategy(new AlignRight());
-
-        System.out.println("\nWith alignment:\n");
-        cap1.print();
+// One can also request an instance from DI context by name
+        c = (ClientComponent)context.getBean("clientComponent");
+        c.operation();
     }
-    }
-
+}
