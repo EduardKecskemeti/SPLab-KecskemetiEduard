@@ -1,10 +1,18 @@
 package com.example.splab.models;
 
-abstract class Element {
+import jakarta.persistence.*;
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Element {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
     public abstract void print();
 
     public void addContent(Element element) {
-
         throw new UnsupportedOperationException("add() not supported");
     }
 
@@ -14,5 +22,9 @@ abstract class Element {
 
     public Element get(int index) {
         throw new UnsupportedOperationException("get() not supported");
+    }
+
+    public int getId() {
+        return id;
     }
 }

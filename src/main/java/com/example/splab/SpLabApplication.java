@@ -1,14 +1,20 @@
 package com.example.splab;
 
+import com.example.splab.models.Book;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import com.example.splab.difexample.ClientComponent;
 import com.example.splab.difexample.TransientComponent;
 import com.example.splab.difexample.SingletonComponent;
+import org.springframework.context.annotation.Bean;
+import com.example.splab.repositories.BookRepository;
+import org.springframework.context.annotation.Configuration;
 @SpringBootApplication
 public class SpLabApplication {
     public static void main(String[] args) {
+
 //
 // Run the main function and inspect the output in console
 // to learn about the lifecycle of objects within the
@@ -43,8 +49,9 @@ public class SpLabApplication {
         ClientComponent c = context.getBean(ClientComponent.class);
         c.operation();
 
-// One can also request an instance from DI context by name
         c = (ClientComponent)context.getBean("clientComponent");
         c.operation();
+
+
     }
 }

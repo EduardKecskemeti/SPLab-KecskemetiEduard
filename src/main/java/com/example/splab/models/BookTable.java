@@ -3,18 +3,18 @@ package com.example.splab.models;
 import jakarta.persistence.Entity;
 
 @Entity
-public class TableOfContents extends Element {
+public class BookTable extends Element {
     private String something;
 
-    public TableOfContents() {}  // JPA requires default constructor
+    public BookTable() {}
 
-    public TableOfContents(String something) {
+    public BookTable(String something) {
         this.something = something;
     }
 
     @Override
     public void print() {
-        System.out.println("Table of Contents: " + something);
+        System.out.println("Table: " + something);
     }
 
     public String getSomething() {

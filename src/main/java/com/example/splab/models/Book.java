@@ -3,18 +3,49 @@ package com.example.splab.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.*;
 
-class Book extends Element {
+@Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Book extends Element {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
     private String title;
+
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Author> authors = new ArrayList<>();
+    @Transient
     private List<Element> elements = new ArrayList<>();
 
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    private List<Section> sections = new ArrayList<>();
+
+    public void addSection(Section section) {
+        if (!sections.contains(section)) {
+            sections.add(section);
+            section.setBook(this); // keep the bidirectional link consistent
+        }
+    }
+
+    public Book() {}
     public Book(String title) {
         this.title = title;
     }
 
     public void addAuthor(Author author) {
         authors.add(author);
+        author.getBooks().add(this);
+    }
+    public List<Section> getSections() {
+        return sections;
+    }
+
+    public void setSections(List<Section> sections) {
+        this.sections = sections;
     }
 
     @Override

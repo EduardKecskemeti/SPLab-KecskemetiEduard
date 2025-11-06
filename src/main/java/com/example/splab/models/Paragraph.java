@@ -1,10 +1,21 @@
 package com.example.splab.models;
+
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+@Entity
 public class Paragraph extends Element {
+
     private String text;
+
+    @Transient  // not persisted, since it’s a runtime strategy
     private AlignStrategy alignStrategy;
-    private static final int LINE_WIDTH = 40; // configurable width
+
+    @Transient  // not persisted, just a constant
+    private static final int LINE_WIDTH = 40;
+
+    public Paragraph() {} // JPA requires a default constructor
 
     public Paragraph(String text) {
         this.text = text;
@@ -14,27 +25,26 @@ public class Paragraph extends Element {
         return text;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
+
     public void setAlignStrategy(AlignStrategy strategy) {
         this.alignStrategy = strategy;
     }
 
     @Override
     public void print() {
-        // Split text into lines based on the width
         List<String> lines = wrapText(text, LINE_WIDTH);
-
         for (String line : lines) {
             if (alignStrategy != null) {
-                // Apply alignment to each line separately
                 alignStrategy.renderLine(line, LINE_WIDTH);
             } else {
-                // Default (no alignment)
                 System.out.println(line);
             }
         }
     }
 
-    // Utility: split text into words that fit the LINE_WIDTH
     private List<String> wrapText(String text, int width) {
         List<String> lines = new ArrayList<>();
         String[] words = text.split(" ");
