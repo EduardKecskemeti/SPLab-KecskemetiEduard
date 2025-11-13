@@ -1,7 +1,7 @@
 package com.example.splab;
 
 import com.example.splab.models.Book;
-import com.example.splab.repositories.BookRepository;
+import com.example.splab.persistence.BookRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

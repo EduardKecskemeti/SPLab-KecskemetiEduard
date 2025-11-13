@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.*;
 
 @Entity
@@ -14,6 +17,8 @@ public class Book extends Element {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @Setter
+    @Getter
     private String title;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -21,6 +26,7 @@ public class Book extends Element {
     @Transient
     private List<Element> elements = new ArrayList<>();
 
+    @Getter
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Section> sections = new ArrayList<>();
 
@@ -39,9 +45,6 @@ public class Book extends Element {
     public void addAuthor(Author author) {
         authors.add(author);
         author.getBooks().add(this);
-    }
-    public List<Section> getSections() {
-        return sections;
     }
 
     public void setSections(List<Section> sections) {
@@ -75,4 +78,5 @@ public class Book extends Element {
             e.print();
         }
     }
+
 }

@@ -1,16 +1,12 @@
 package com.example.splab;
 
-import com.example.splab.models.Book;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import com.example.splab.difexample.ClientComponent;
 import com.example.splab.difexample.TransientComponent;
 import com.example.splab.difexample.SingletonComponent;
-import org.springframework.context.annotation.Bean;
-import com.example.splab.repositories.BookRepository;
-import org.springframework.context.annotation.Configuration;
+
 @SpringBootApplication
 public class SpLabApplication {
     public static void main(String[] args) {
