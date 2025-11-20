@@ -8,7 +8,7 @@ public abstract class Element {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     public abstract void print();
 
@@ -24,7 +24,7 @@ public abstract class Element {
         throw new UnsupportedOperationException("get() not supported");
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 }

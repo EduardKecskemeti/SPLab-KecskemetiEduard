@@ -2,19 +2,28 @@ package com.example.splab.controllers;
 
 import com.example.splab.models.Book;
 import com.example.splab.persistence.BookRepository;
+import com.example.splab.observer.AllBooksSubject;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
 @RequestMapping("/books")
-@CrossOrigin(origins = "*") // allows access from browser if needed
+@CrossOrigin(origins = "*")
 public class BooksController {
 
     private final BookRepository bookRepository;
+    private final AllBooksSubject allBooksSubject;
 
-    public BooksController(BookRepository bookRepository) {
+    public BooksController(BookRepository bookRepository, AllBooksSubject allBooksSubject) {
         this.bookRepository = bookRepository;
+        this.allBooksSubject = allBooksSubject;
+    }
+
+    @PostMapping
+    public Book addBook(@RequestBody Book book) {
+        Book saved = bookRepository.save(book);
+        allBooksSubject.add(saved);
+        return saved;
     }
 
     @GetMapping
@@ -26,11 +35,6 @@ public class BooksController {
     public Book getBook(@PathVariable int id) {
         return bookRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Book not found with id " + id));
-    }
-
-    @PostMapping
-    public Book createBook(@RequestBody Book book) {
-        return bookRepository.save(book);
     }
 
     @PutMapping("/{id}")

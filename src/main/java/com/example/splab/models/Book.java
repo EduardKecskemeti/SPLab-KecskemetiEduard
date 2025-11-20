@@ -9,20 +9,21 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.*;
-
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Book extends Element {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
 
-    @Setter
     @Getter
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Setter @Getter
     private String title;
 
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Author> authors = new ArrayList<>();
+
     @Transient
     private List<Element> elements = new ArrayList<>();
 
@@ -30,14 +31,8 @@ public class Book extends Element {
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Section> sections = new ArrayList<>();
 
-    public void addSection(Section section) {
-        if (!sections.contains(section)) {
-            sections.add(section);
-            section.setBook(this); // keep the bidirectional link consistent
-        }
-    }
-
     public Book() {}
+
     public Book(String title) {
         this.title = title;
     }
@@ -45,6 +40,13 @@ public class Book extends Element {
     public void addAuthor(Author author) {
         authors.add(author);
         author.getBooks().add(this);
+    }
+
+    public void addSection(Section section) {
+        if (!sections.contains(section)) {
+            sections.add(section);
+            section.setBook(this);
+        }
     }
 
     public void setSections(List<Section> sections) {
@@ -70,13 +72,9 @@ public class Book extends Element {
     public void print() {
         System.out.println("\nBook: " + title);
         System.out.println("Authors:");
-        for (Author a : authors) {
-            a.print();
-        }
-        System.out.println("Contents:");
-        for (Element e : elements) {
-            e.print();
-        }
-    }
+        for (Author a : authors) a.print();
 
+        System.out.println("Contents:");
+        for (Element e : elements) e.print();
+    }
 }

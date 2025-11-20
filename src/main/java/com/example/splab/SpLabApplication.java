@@ -11,6 +11,7 @@ import com.example.splab.difexample.SingletonComponent;
 public class SpLabApplication {
     public static void main(String[] args) {
 
+
 //
 // Run the main function and inspect the output in console
 // to learn about the lifecycle of objects within the
